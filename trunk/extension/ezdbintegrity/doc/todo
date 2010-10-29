@@ -1,0 +1,9 @@
+. use data from the ezpersistentobject_inspector project to derive known FKs between persistent objects
+
+. continue inserting FKs by han din ini file
+
+. create a php class that loops on FK defs and checks violations
+  + add a script to run the check via cli
+  + add a module/view to display results
+
+. create a php class that loops on FK defs and actually creates them in the db

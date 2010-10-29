@@ -14,5 +14,6 @@ ezcontentobject[]=contentclass_id::ezcontentclass::id
 
 ezcontentobject_tree[]=contentobject_id::ezcontentobject::id
 
+ezpreferences[]=
 ezuser[]=contentobject_id::ezcontentobject::id
 
