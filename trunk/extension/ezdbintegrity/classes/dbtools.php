@@ -7,6 +7,8 @@
  * @license code licensed under the GNU GPL 2.0: see README
  *
  * @todo add postgres support
+ * @todo move default suffix for output files to an option
+ * @todo add a method that lists the needed options
  */
 
 class DBTools
@@ -85,16 +87,16 @@ class DBTools
     static function importAndDumpSchemaFile( $options, $infile, $schemaname, $outfile='' )
     {
         is_file( $infile ) or die( "cannot insert dba file $infile: file not found" );
-        echo "create schema $schemaname\n";
+        echo " create schema $schemaname\n";
         self::dropSchema( $schemaname, $options );
         self::createSchema( $schemaname, $options );
-        echo "import structure from file $infile\n";
+        echo " import structure from file $infile\n";
         self::importDBAFile( $infile, $schemaname, $options );
-        echo "export structure\n";
         if ( $outfile == '' )
         {
             $outfile = $infile . '.out';
         }
+    	echo " export structure to files $outfile.dba, $outfile.sql\n";
         self::dumpDBAFile( $outfile . '.dba', $schemaname, 'array', $options );
         self::dumpDBAFile( $outfile . '.sql', $schemaname, 'sql', $options );
         /// @bug we should not clean up here if we do data testing later in same schema
@@ -107,16 +109,16 @@ class DBTools
     static function importAndDumpSQLFile( $options, $infile, $schemaname, $outfile='' )
     {
         is_file( $infile ) or die( "cannot insert sql file $infile: file not found" );
-        echo "create schema $schemaname\n";
+        echo " create schema $schemaname\n";
         self::dropSchema( $schemaname, $options );
         self::createSchema( $schemaname, $options );
-        echo "import from file $infile\n";
+        echo " import from file $infile\n";
         self::importSQLFile( $infile, $schemaname, $options );
-        echo "export structure\n";
         if ( $outfile == '' )
         {
             $outfile = $infile . '.out';
         }
+        echo "export schema to files $outfile.dba, $outfile.sql\n";
         self::dumpDBAFile( $outfile . '.dba', $schemaname, 'array', $options );
         self::dumpDBAFile( $outfile . '.sql', $schemaname, 'sql', $options );
         /// @bug we should not clean up here if we do data testing later in same schema
@@ -129,13 +131,13 @@ class DBTools
     static function importAndDumpDataFile( $options, $infile, $schemaname, $schemafile, $outfile='' )
     {
         is_file( $infile ) or die( "cannot insert dba file $infile: file not found" );
-        echo "import data from file $infile\n";
+        echo " import data from file $infile\n";
         self::importDBAFile( $infile, $schemaname, $options, " --insert-types=data --schema-file=$schemafile" );
-        echo "export data\n";
         if ( $outfile == '' )
         {
             $outfile = $infile . '.out';
         }
+    	echo " export data to files $outfile.dba, $outfile.sql\n";
         self::dumpDBAFile( $outfile . '.dba', $schemaname, 'array', $options, ' --output-types=data' );
         self::dumpDBAFile( $outfile . '.sql', $schemaname, 'sql', $options, ' --output-types=data' );
         if ( $options['cleanup'] )

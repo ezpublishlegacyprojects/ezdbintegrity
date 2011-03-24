@@ -5,7 +5,7 @@
  * 1.for all .dba files in an ezp install, imports them in a db (creating a new
  *   schema/db for each .dba file), then exports them again to compare the newly
  *   exported file with the original one.
- *   For both schema files and data files, we export in .dba and .sql format.
+ *   For both schema files and data files, we export twice, in .dba and .sql format.
  *
  *   NB: to correctly scan extensions that contain .dba files, those extensions
  *   have to be activated
@@ -14,15 +14,14 @@
  * @copyright (C) G. Giunta 2011
  * @license code licensed under the GNU GPL 2.0: see README
  *
- * @todo test extensions that contain = .sql file somewhere but not proper .dba (and the reverse)
  * @todo test extensions that contain = .dba files with wrong names/paths
  * @todo diff obtained files by content rather than by filesize only
  *
  */
 
 // poor man's workaround for not setting up prperly include path
-if ( !(@include 'extension/ezdbintegrity/classes/clitools.php') && !(include 'classes/clitools.php') ) require( 'clitools.php' );
-if ( !(@include 'extension/ezdbintegrity/classes/dbtools.php') && !(include 'classes/dbtools.php') ) require( 'dbtools.php' );
+if ( !(@include 'extension/ezdbintegrity/classes/clitools.php') && !(@include 'classes/clitools.php') ) require( 'clitools.php' );
+if ( !(@include 'extension/ezdbintegrity/classes/dbtools.php') && !(@include 'classes/dbtools.php') ) require( 'dbtools.php' );
 
 $options = CLITools::getOptions(
     array(

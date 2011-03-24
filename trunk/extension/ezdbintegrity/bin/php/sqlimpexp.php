@@ -6,11 +6,14 @@
  * @author G. Giunta
  * @copyright (C) G. Giunta 2011
  * @license code licensed under the GNU GPL 2.0: see README
+ *
+ * @todo add two-pass support
+ * @todo add comparison of dumped sql with source sql
  */
 
 // poor man's workaround for not setting up prperly include path
-if ( !(@include 'extension/ezdbintegrity/classes/clitools.php') && !(include 'classes/clitools.php') ) require( 'clitools.php' );
-if ( !(@include 'extension/ezdbintegrity/classes/dbtools.php') && !(include 'classes/dbtools.php') ) require( 'dbtools.php' );
+if ( !(@include 'extension/ezdbintegrity/classes/clitools.php') && !(@include 'classes/clitools.php') ) require( 'clitools.php' );
+if ( !(@include 'extension/ezdbintegrity/classes/dbtools.php') && !(@include 'classes/dbtools.php') ) require( 'dbtools.php' );
 
 $options = CLITools::getOptions(
     array(
